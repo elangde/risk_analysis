@@ -13,7 +13,7 @@ def process_data():
     df_files = [pd.read_csv(os.path.join(input_path, f)).assign(input=f) for f in file_list]
     df = pd.concat(df_files, ignore_index=True)
     df.rename(columns = {'input':'Environment'}, inplace = True)
-    df['Environment']=df.Environment.str.replace(r'(.csv)', '')
+    df['Environment']=df.Environment.str.replace(r'(.csv|0|1|2|3|4|5|6|7|8|9)', '')
     df_output=df[['Source IP','Environment']].drop_duplicates().sort_values(by=['Source IP'])
     df_output.to_csv(conf ["datapaths"]["output_path"]+"combine.csv", index=False)
     
